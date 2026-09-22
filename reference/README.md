@@ -19,6 +19,7 @@ This phase is a **tripwire**, not containment. See `viability.md`.
 | `smoke.sh` | One-command create / write / run-model + print the alert log line |
 | `detectability.md` | Split-horizon vs egress-proxy rewrite; TLS / DoH tells |
 | `viability.md` | Stage decisions: tripwire, not containment |
+| `allowlist.md` | Harness allowlist template (no tenant secrets) |
 | `NOTES.md` | Image, entrypoint, YAML validation, why no plugin yet |
 | `GROK_BUILD_HANDOFF.md` | Prompt to paste into Grok Build |
 

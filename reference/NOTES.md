@@ -41,7 +41,7 @@ Do not fork `gitlab.com/tlb/exfil`. Do not run llama.cpp. Do not persist GGUF by
 - `ports:` loopback-only so a random host interface is not a listener.
 - `networks.honeypot.internal: true` so the container has no default route.
 - Smoke sidecar shares that network and does not need the published port.
-- Prometheus `:2112` is also loopback-published. Do not map it to `0.0.0.0`.
+- Prometheus listens inside the container on `:2112` and is **not** published.
 - No SSH / Telnet / MCP service YAML in `services/`. HTTP only.
 
 `internal: true` can hide published ports on some Docker versions. If `curl 127.0.0.1:8080` from the host fails after `compose up`, use the sidecar (`./smoke.sh`) and point the lab proxy at the container IP / extra host network. Loopback publish is the intended path for split-horizon and local proxy rewrite.
@@ -65,7 +65,9 @@ Treat **any** path starting `/exfil/v1/` as an escape attempt. The catch-all `ex
 `viability.md` is the stage contract: tripwire, not containment.
 
 - Prometheus is not published. Only `127.0.0.1:8080` leaves the host namespace.
-- Config-only Beelzebub logs `event.RequestURI` in full. For `write`, that URI **is** the base64 chunk. Hash-and-discard of the payload is a plugin or a log pipeline, not YAML. Smoke uses a four-byte fixture (`dGVzdA==`) so the greppable line does not reconstruct a model file.
+- Compose `logging` is json-file, 8m × 3. `logs/beelzebub.log` is lab scratch — delete it; do not archive write URIs.
+- Config-only Beelzebub logs `event.RequestURI` in full. For `write`, that URI **is** the base64 chunk. Hash-and-discard of the payload is a plugin or a log pipeline, not YAML. `./smoke.sh` redacts that segment when printing.
+- Next harness work: `allowlist.md`. Do not commit live allowlists.
 - Do not add paging, auto-shutdown, or extra lures until `./smoke.sh` is true on a Docker host.
 - Fingerprints in these notes go stale at Let's Encrypt renewal. They are not secrets.
 

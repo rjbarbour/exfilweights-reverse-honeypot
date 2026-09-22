@@ -35,6 +35,11 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "8m"
+        max-file: "3"
 
   smoke:
     image: curlimages/curl:8.16.0
@@ -51,6 +56,11 @@ services:
       LOG_FILE: /logs/beelzebub.log
       IN_SMOKE_CONTAINER: "1"
     entrypoint: ["/bin/sh", "/smoke.sh"]
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "2"
 
 networks:
   honeypot:
