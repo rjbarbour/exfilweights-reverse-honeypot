@@ -2,7 +2,7 @@
 # Listeners bind to loopback on the host. The compose network has no default
 # gateway, so the container cannot reach the public internet.
 #
-# One-command smoke test (from this directory):
+# One-command smoke test (from repo root):
 #   ./smoke.sh
 # which runs: docker compose --profile smoke run --rm smoke
 

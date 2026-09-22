@@ -1,7 +1,7 @@
 #!/bin/sh
 # One-command smoke: create / write / run-model, then print the alert log line.
 #
-# From reference/:
+# From repo root:
 #   ./smoke.sh
 #
 # Inside compose (profile smoke) this script is the container entrypoint.

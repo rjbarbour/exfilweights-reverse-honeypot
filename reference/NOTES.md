@@ -1,8 +1,10 @@
 # Compose boot notes (2026-09-21)
 
-First deliverable: make `docker compose` in this directory actually boot,
-add a one-command smoke test, keep research here. No implementation code at
-repo root — YAML is sufficient for detection.
+First deliverable: make `docker compose` at the **repo root** actually boot,
+add a one-command smoke test, keep research in `reference/`. Working YAML is
+config, not a plugin.
+
+Working files: `docker-compose.yml`, `beelzebub.yaml`, `services/`, `smoke.sh`.
 
 ## What was wrong
 
@@ -67,7 +69,7 @@ Treat **any** path starting `/exfil/v1/` as an escape attempt. The catch-all `ex
 - Prometheus is not published. Only `127.0.0.1:8080` leaves the host namespace.
 - Compose `logging` is json-file, 8m × 3. `logs/beelzebub.log` is lab scratch — delete it; do not archive write URIs.
 - Config-only Beelzebub logs `event.RequestURI` in full. For `write`, that URI **is** the base64 chunk. Hash-and-discard of the payload is a plugin or a log pipeline, not YAML. `./smoke.sh` redacts that segment when printing.
-- Next harness work: `allowlist.md`. Do not commit live allowlists.
-- Do not add paging, auto-shutdown, or extra lures until `./smoke.sh` is true on a Docker host.
+- Next harness work: `allowlist.md` (this directory). Do not commit live allowlists.
+- Do not add paging, auto-shutdown, or extra lures until `./smoke.sh` at the repo root is true on a Docker host.
 - Fingerprints in these notes go stale at Let's Encrypt renewal. They are not secrets.
 

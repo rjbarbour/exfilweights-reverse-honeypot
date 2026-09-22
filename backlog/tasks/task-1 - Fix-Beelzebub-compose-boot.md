@@ -5,13 +5,13 @@ status: Done
 assignee:
   - grok-build
 created_date: '2026-09-22 00:11'
-updated_date: '2026-09-22 00:12'
+updated_date: '2026-09-22 00:17'
 labels:
   - tripwire
 milestone: m-0
 dependencies: []
 references:
-  - reference/docker-compose.yml
+  - docker-compose.yml
   - reference/NOTES.md
 priority: high
 type: chore
@@ -32,6 +32,12 @@ The reference compose used a non-existent Docker Hub image (beelzebub-labs/beelz
 - [x] #4 Compose network is internal: true (no default route)
 - [x] #5 YAML in services/ validates
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Working compose/YAML/smoke moved from reference/ to repo root. reference/ is notes and handoff only.
+<!-- SECTION:NOTES:END -->
 
 ## Final Summary
 

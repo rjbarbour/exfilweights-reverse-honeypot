@@ -4,13 +4,14 @@ title: Prove smoke.sh on a Docker host
 status: To Do
 assignee: []
 created_date: '2026-09-22 00:12'
+updated_date: '2026-09-22 00:17'
 labels:
   - tripwire
 milestone: m-0
 dependencies:
   - TASK-2
 references:
-  - reference/smoke.sh
+  - smoke.sh
   - reference/viability.md
 priority: high
 type: task
@@ -25,8 +26,8 @@ This sandbox has no Docker daemon. The binary extracted from m4r10/beelzebub:v3.
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 On a host with Docker Compose v2, cd reference && ./smoke.sh exits 0
+- [ ] #1 On a host with Docker Compose v2, ./smoke.sh from the repo root exits 0
 - [ ] #2 Printed lines include Handler names and /exfil/v1/
 - [ ] #3 Host cannot reach the listener except on 127.0.0.1:8080
-- [ ] #4 SMOKE_RESULT.txt or NOTES.md records the host run
+- [ ] #4 reference/SMOKE_RESULT.txt or reference/NOTES.md records the host run
 <!-- AC:END -->

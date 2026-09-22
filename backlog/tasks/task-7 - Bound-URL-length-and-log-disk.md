@@ -4,13 +4,14 @@ title: Bound URL length and log disk
 status: To Do
 assignee: []
 created_date: '2026-09-22 00:12'
+updated_date: '2026-09-22 00:17'
 labels:
   - tripwire
 milestone: m-0
 dependencies:
   - TASK-5
 references:
-  - reference/docker-compose.yml
+  - docker-compose.yml
   - reference/viability.md
 priority: medium
 type: enhancement

