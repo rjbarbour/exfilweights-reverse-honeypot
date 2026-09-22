@@ -3,6 +3,7 @@ core:
     debug: false
     debugReportCaller: false
     logDisableTimestamp: false
+    # File path, not a directory. Beelzebub opens this with os.OpenFile.
     logsPath: /logs/beelzebub.log
   tracings:
     rabbit-mq:

