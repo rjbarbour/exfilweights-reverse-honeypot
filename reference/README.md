@@ -22,6 +22,7 @@ This phase is a **tripwire**, not containment. See `viability.md`.
 | `allowlist.md` | Harness allowlist template (no tenant secrets) |
 | `NOTES.md` | Image, entrypoint, YAML validation, why no plugin yet |
 | `GROK_BUILD_HANDOFF.md` | Prompt to paste into Grok Build |
+| `../backlog/` | Backlog.md board (CLI source of truth) |
 
 ## Bring-up
 

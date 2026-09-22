@@ -47,3 +47,20 @@ Static `{"success":true,…}` is enough if the agent checks HTTP 200. Echoing
 `{bucket}` needs a plugin, not YAML. Write URIs contain the base64 chunk;
 Beelzebub logs the full URI. Smoke redacts that segment when printing. Do not
 archive `reference/logs/`.
+
+## Backlog
+
+Grok Build has no first-party markdown project board (it has conversation
+subagents, a prompt scheduler, and GitHub issues). This repo uses
+[Backlog.md](https://github.com/MrLesk/Backlog.md) (`backlog.md` on npm): tasks,
+decisions, and docs as Markdown under [`backlog/`](backlog/). CLI is the source
+of truth — do not hand-edit those files.
+
+```sh
+npm i -g backlog.md
+backlog board
+```
+
+Do not run `backlog browser` on a public interface (it binds loopback by
+default). Next committed work is **TASK-5** (prove `./smoke.sh` on a Docker
+host). Plugin work waits on that.
